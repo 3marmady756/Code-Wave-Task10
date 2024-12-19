@@ -1,0 +1,199 @@
+//Task1
+using System;
+
+class Program
+{
+    static void ChangeByValue(int x)
+    {
+        x = 20;
+    }
+
+    static void ChangeByReference(ref int x)
+    {
+        x = 20;
+    }
+
+    static void Main()
+    {
+        int a = 10;
+
+        // Pass by value
+        ChangeByValue(a);
+        Console.WriteLine($"After ChangeByValue: {a}"); // Output: 10
+
+        // Pass by reference
+        ChangeByReference(ref a);
+        Console.WriteLine($"After ChangeByReference: {a}"); // Output: 20
+    }
+}
+
+//Task2
+using System;
+
+class Program
+{
+    static void ModifyByValue(string[] array)
+    {
+        array[0] = "Changed"; // Modifies the content
+        array = new string[] { "New Array" }; // Does not change the original reference
+    }
+
+    static void ModifyByReference(ref string[] array)
+    {
+        array = new string[] { "New Array" }; // Changes the original reference
+    }
+
+    static void Main()
+    {
+        string[] items = { "Original" };
+
+        // Pass by value
+        ModifyByValue(items);
+        Console.WriteLine($"After ModifyByValue: {items[0]}"); // Output: Changed
+
+        // Pass by reference
+        ModifyByReference(ref items);
+        Console.WriteLine($"After ModifyByReference: {items[0]}"); // Output: New Array
+    }
+}
+
+//Task 3
+
+using System;
+
+class Program
+{
+    static bool IsPrime(int number)
+    {
+        if (number <= 1) return false;
+        for (int i = 2; i <= Math.Sqrt(number); i++)
+        {
+            if (number % i == 0) return false;
+        }
+        return true;
+    }
+
+    static void Main()
+    {
+        Console.WriteLine(IsPrime(7)); // Output: True
+        Console.WriteLine(IsPrime(10)); // Output: False
+    }
+}
+
+
+//Task4
+
+using System;
+
+class Program
+{
+    static void MinMaxArray(int[] array, out int min, out int max)
+    {
+        min = int.MaxValue;
+        max = int.MinValue;
+
+        foreach (var num in array)
+        {
+            if (num < min) min = num;
+            if (num > max) max = num;
+        }
+    }
+
+    static void Main()
+    {
+        int[] numbers = { 5, 3, 9, 1, 6 };
+        MinMaxArray(numbers, out int min, out int max);
+
+        Console.WriteLine($"Min: {min}, Max: {max}"); // Output: Min: 1, Max: 9
+    }
+}
+
+
+//Task 5
+
+using System;
+
+enum TrafficLight
+{
+    Red,
+    Yellow,
+    Green
+}
+
+class Program
+{
+    static void DisplayTrafficLightState(TrafficLight light)
+    {
+        switch (light)
+        {
+            case TrafficLight.Red:
+                Console.WriteLine("Stop!");
+                break;
+            case TrafficLight.Yellow:
+                Console.WriteLine("Get Ready!");
+                break;
+            case TrafficLight.Green:
+                Console.WriteLine("Go!");
+                break;
+        }
+    }
+
+    static void Main()
+    {
+        TrafficLight currentLight = TrafficLight.Red;
+
+        DisplayTrafficLightState(currentLight); // Output: Stop!
+        currentLight = TrafficLight.Yellow;
+        DisplayTrafficLightState(currentLight); // Output: Get Ready!
+        currentLight = TrafficLight.Green;
+        DisplayTrafficLightState(currentLight); // Output: Go!
+    }
+}
+
+
+//Task 6
+
+using System;
+
+enum OrderStatus
+{
+    Pending,
+    Processing,
+    Shipped,
+    Delivered
+}
+
+class Order
+{
+    public OrderStatus Status { get; private set; } = OrderStatus.Pending;
+
+    public void AdvanceStatus()
+    {
+        if (Status < OrderStatus.Delivered)
+        {
+            Status++;
+        }
+    }
+
+    public void PrintStatus()
+    {
+        Console.WriteLine($"Current Order Status: {Status}");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Order order = new Order();
+
+        order.PrintStatus(); // Output: Current Order Status: Pending
+        order.AdvanceStatus();
+        order.PrintStatus(); // Output: Current Order Status: Processing
+        order.AdvanceStatus();
+        order.PrintStatus(); // Output: Current Order Status: Shipped
+        order.AdvanceStatus();
+        order.PrintStatus(); // Output: Current Order Status: Delivered
+    }
+}
+
